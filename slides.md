@@ -7,112 +7,24 @@ info: |
 aspectRatio: 16/9
 drawings:
   enabled: true
-transition: slide-left
 mdc: true
-colorSchema: light
+colorSchema: dark
+highlighter: shiki
+lineNumbers: false
 fonts:
   sans: '"Segoe UI", "Microsoft JhengHei", sans-serif'
-  serif: '"Georgia", "Times New Roman", serif'
+  serif: '"Noto Serif TC", "PMingLiU", serif'
   mono: '"Cascadia Code", "Consolas", monospace'
+  provider: none
 themeConfig:
-  primary: '#14532d'
-  secondary: '#1d4ed8'
-  accent: '#b45309'
-  background: '#f6f6ef'
-  codeBackground: '#111827'
+  primary: '#38bdf8'
+  secondary: '#8b5cf6'
+  accent: '#f59e0b'
+  background: '#09111f'
+  codeBackground: '#0b1220'
+defaults:
+  transition: fade-out
 ---
-
-<style>
-:root {
-  --slidev-theme-primary: #14532d;
-  --slidev-theme-secondary: #1d4ed8;
-  --slidev-theme-accent: #b45309;
-  --slidev-code-background: #111827;
-}
-
-.slidev-layout {
-  background:
-    radial-gradient(circle at top right, rgba(29, 78, 216, 0.10), transparent 32%),
-    radial-gradient(circle at left bottom, rgba(20, 83, 45, 0.12), transparent 28%),
-    linear-gradient(180deg, #fbfbf7 0%, #f1f2ea 100%);
-}
-
-h1, h2, h3 {
-  letter-spacing: 0.01em;
-}
-
-.eyebrow {
-  display: inline-block;
-  margin-bottom: 0.8rem;
-  padding: 0.25rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(20, 83, 45, 0.12);
-  color: #14532d;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.panel {
-  padding: 1rem 1.2rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 16px 50px rgba(15, 23, 42, 0.06);
-}
-
-.metric {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #14532d;
-}
-
-.soft-grid {
-  display: grid;
-  gap: 0.9rem;
-}
-
-.soft-grid.two {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.soft-grid.three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.small {
-  font-size: 0.92rem;
-}
-
-.muted {
-  color: #475569;
-}
-
-.danger {
-  color: #991b1b;
-}
-
-.good {
-  color: #166534;
-}
-
-.accent {
-  color: #b45309;
-}
-
-table {
-  font-size: 0.9rem;
-}
-
-thead tr {
-  background: rgba(20, 83, 45, 0.10);
-}
-
-tbody tr:nth-child(odd) {
-  background: rgba(255, 255, 255, 0.7);
-}
-</style>
 
 ---
 layout: cover
@@ -120,54 +32,92 @@ background: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=fo
 class: text-white
 ---
 
-<div class="eyebrow !bg-white/20 !text-white !border !border-white/30">Slidev 教育訓練</div>
+<div
+  class="eyebrow"
+  v-motion
+  :initial="{ opacity: 0, y: -40 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 700 } }"
+>
+  伺服器管控 · .NET 工程化 
+</div>
 
-# 用現代 .NET 建立可控的後端工程系統
+<div
+  v-motion
+  :initial="{ opacity: 0, x: -80 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 900, delay: 120 } }"
+>
 
-從 ASP.NET MVC / WebForms 的網站思維  
-切換到現代 ASP.NET Core 的後端工程思維
+# 用 .NET Core+ 建立可控的後端工程系統
 
-<div class="pt-8 text-lg opacity-90">
-主案例：<span class="font-bold">企業內部 API / Infrastructure / Core</span> 架構，地端自行部署
+</div>
+
+<div
+  class="hero-copy"
+  v-motion
+  :initial="{ opacity: 0, y: 24 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 260 } }"
+>
+  從 ASP.NET MVC / WebForms 的網站思維<br>
+  切換到現代 ASP.NET Core 的後端工程思維
+</div>
+
+<div
+  class="hero-meta"
+  v-motion
+  :initial="{ opacity: 0, y: 30 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 420 } }"
+>
+  企業內部 <span class="font-bold">API / Infrastructure / Core</span> 架構，地端自行部署
 </div>
 
 ---
 layout: two-cols-header
+transition: slide-left
 ---
 
 # 今天要回答的不是 API 細節，而是工程模型
 
 ::left::
 
-<div class="panel">
+<div
+  class="panel panel--legacy"
+  v-motion
+  :initial="{ opacity: 0, x: -50 }"
+  :enter="{ opacity: 1, x: 0 }"
+>
 
-### 舊 ASP.NET 世界
+<div class="col-badge col-badge--legacy">舊 ASP.NET 世界</div>
 
-- IIS / `web.config` / Global.asax 是主舞台
+- `IIS` / `web.config` / `Global.asax` 是主舞台
 - 網站專案常同時裝 UI、流程、資料存取、設定
-- 很多關鍵流程靠人工點選與機器記憶
+- 關鍵流程常綁在人腦記憶與手動操作
 
 </div>
 
 ::right::
 
-<div class="panel">
+<div
+  class="panel panel--modern"
+  v-motion
+  :initial="{ opacity: 0, x: 50 }"
+  :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }"
+>
 
-### 現代 ASP.NET Core 世界
+<div class="col-badge col-badge--modern">現代 ASP.NET Core</div>
 
 - Host、Middleware、DI、Configuration 可程式化
-- API / Core / Infrastructure 讓責任分層
-- 發佈、Migration、設定、部署可以納入工程流程
+- API / Core / Infrastructure 可清楚分責
+- 發佈、Migration、設定、部署都能進工程流程
 
 </div>
 
 ---
-layout: two-cols
+layout: default
 ---
 
 # 舊世界的主要痛點
 
-<div class="panel">
+<div class="panel small">
 
 | 常見現象 | 真正的工程問題 |
 | --- | --- |
@@ -175,34 +125,53 @@ layout: two-cols
 | SQL、商業規則、設定混在一起 | 修改牽一髮動全身 |
 | DB 變更靠手動 SQL 或口頭通知 | 程式版與資料庫版脫鉤 |
 | publish 後再改設定檔 | 環境不可重建，不可追蹤 |
-| IIS 站台靠手動點選設定 | 部署知識綁在人，不綁在流程 |
+| IIS 站台靠環境個別設定 | 部署知識綁在人，不綁在流程 |
 
 </div>
 
-<div class="pt-5 soft-grid three">
-  <div class="panel"><div class="metric">高耦合</div><div class="small muted">一改就連鎖反應</div></div>
-  <div class="panel"><div class="metric">低可測</div><div class="small muted">只能整站驗證</div></div>
-  <div class="panel"><div class="metric">低可控</div><div class="small muted">環境與版本狀態不透明</div></div>
+<div class="mt-4 soft-grid three">
+  <div class="panel metric-card" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0 }"><div class="metric">高耦合</div><div class="small muted">改一處，處處連鎖</div></div>
+  <div class="panel metric-card" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0, transition: { delay: 120 } }"><div class="metric">低可測</div><div class="small muted">只能整站跑驗證</div></div>
+  <div class="panel metric-card" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0, transition: { delay: 240 } }"><div class="metric">低可控</div><div class="small muted">版本與環境不透明</div></div>
 </div>
 
 ---
 layout: statement
 ---
 
-# 現代 .NET 先解掉的是工程控制點
+# 現代 .NET 想解的是工程控制點
 
-把 <span class="accent font-bold">啟動、依賴、設定、資料庫版本、部署流程</span>  
-都變成可以組裝、測試、追蹤的工程資產。
+<div
+  class="statement-body"
+  v-motion
+  :initial="{ opacity: 0, scale: 0.92 }"
+  :enter="{ opacity: 1, scale: 1, transition: { duration: 600 } }"
+>
+  把 <span class="accent">啟動、依賴、設定、資料庫版本、部署流程</span><br>
+  變成可以被組裝、被測試、被追蹤的工程資產。
+</div>
+
+---
+layout: section
+transition: slide-up
+---
+
+# 序章
+
+## 啟動架構
+
+`Host` · `Middleware` · `DI` · `Configuration`
 
 ---
 layout: two-cols-header
+transition: slide-left
 ---
 
 # 從網站思維轉成後端系統思維
 
 ::left::
 
-<div class="panel">
+<div class="panel" v-motion :initial="{ opacity: 0, x: -50 }" :enter="{ opacity: 1, x: 0 }">
 
 ### 舊 ASP.NET
 
@@ -215,7 +184,7 @@ layout: two-cols-header
 
 ::right::
 
-<div class="panel">
+<div class="panel" v-motion :initial="{ opacity: 0, x: 50 }" :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }">
 
 ### ASP.NET Core
 
@@ -230,60 +199,167 @@ layout: two-cols-header
 layout: two-cols
 ---
 
-# Host / Middleware / DI / Configuration 各自做什麼
+# .NET Core 不是框架
 
 ::left::
 
-```mermaid
-flowchart TD
-    A[Host 建立應用程式] --> B[Configuration 載入設定來源]
-    B --> C[DI Container 註冊服務]
-    C --> D[Middleware 組成 Request Pipeline]
-    D --> E[Endpoints / Controllers]
-```
+<div class="platform-stack">
+
+<div class="platform-layer platform-layer--tooling" v-click>
+  <div class="layer-num">④</div>
+  <div>
+    <div class="layer-name">工具鏈 Tooling</div>
+    <div class="layer-detail">dotnet CLI · NuGet · Build System</div>
+  </div>
+</div>
+
+<div class="platform-layer platform-layer--framework" v-click>
+  <div class="layer-num">③</div>
+  <div>
+    <div class="layer-name">Framework</div>
+    <div class="layer-detail">ASP.NET Core · Worker Service · gRPC · Blazor</div>
+  </div>
+</div>
+
+<div class="platform-layer platform-layer--bcl" v-click>
+  <div class="layer-num">②</div>
+  <div>
+    <div class="layer-name">標準函式庫 BCL</div>
+    <div class="layer-detail">IO · HTTP · JSON · Threading</div>
+  </div>
+</div>
+
+<div class="platform-layer platform-layer--runtime" v-click>
+  <div class="layer-num">①</div>
+  <div>
+    <div class="layer-name">Runtime — CLR</div>
+    <div class="layer-detail">執行 C# · GC 記憶體管理 · JIT 編譯</div>
+  </div>
+</div>
+
+</div>
 
 ::right::
 
-<div class="panel small">
+<div class="panel small ml-2" v-click>
 
-- **Host**：決定怎麼啟動、停止、掛 logging
-- **Configuration**：整合檔案、祕密、環境變數
-- **DI**：宣告依賴關係，避免自行到處找東西
-- **Middleware**：把 HTTP 流程拆成可插拔的段落
+## 簡單來說
+
+1. .NET 是`Platform`，不是單一框架
+2. `ASP.NET Core` 只是其中**一種用途**
+3. `Runtime` 只是最底層的**一層**
+
+</div>
+
+<div class="panel small mt-3  ml-2" v-click>
+
+## vs .NET Framework
+
+<div class="compare-row"><span class="muted">Host</span><span>IIS 唯一 → <span class="accent-green">可自行 Host</span></span></div>
+<div class="compare-row"><span class="muted">平台</span><span>Windows 限定 → <span class="accent-green">跨平台</span></span></div>
+<div class="compare-row"><span class="muted">架構</span><span>單一框架 → <span class="accent-green">模組化平台</span></span></div>
+
+</div>
+
+---
+layout: default
+---
+
+# Host / Middleware / DI / Configuration 各自做什麼
+
+```mermaid
+flowchart LR
+    A[Host] --> B[Configuration] --> C[DI Container] --> D[Middleware Pipeline] --> E[Endpoints]
+```
+
+<div class="mt-5 soft-grid four">
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">Host</div>
+決定怎麼啟動、停止<br>掛 <code>logging</code>、執行環境
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">Configuration</div>
+整合 JSON 檔案、<code>User Secrets</code><br>環境變數、命令列參數
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">DI Container</div>
+宣告依賴關係<br>避免物件自行到處找東西
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">Middleware</div>
+把 HTTP 流程拆成<br>可插拔的獨立段落
+</div>
 
 </div>
 
 ---
 layout: two-cols-header
+clicks: 3
 ---
 
 # 最小範例：啟動流程長什麼樣
 
 ::left::
 
-<<< @/snippets/program.cs {cs}{maxHeight:'400px'}
+````md magic-move {at:2, lines: true}
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+app.MapControllers();
+app.Run();
+```
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+app.UseHttpsRedirection();
+app.MapControllers();
+app.Run();
+```
+<<< @/snippets/program.cs cs {*}{maxHeight:'400px'}
+````
 
 ::right::
 
-<div class="panel small">
+<div class="panel small" v-motion :initial="{ opacity: 0, x: 40 }" :enter="{ opacity: 1, x: 0 }">
 
 <v-clicks>
 
-- 新同事讀 `Program.cs` 就能理解系統怎麼組起來
-- 驗證、授權、例外處理不再散在各角落
-- 啟動流程越透明，維護與交接成本越低
+- 第一段先看到最小可運作的 HTTP 入口
+- 第二段補進 API 專案常見的開發配備
+- 最後一步才把完整組裝與 middleware 串完整
 
 </v-clicks>
 
 </div>
 
 ---
-layout: two-cols
+layout: section
+transition: slide-up
 ---
 
-# API / Infrastructure / Core：三層不是為了漂亮
+# 第二章
 
-::left::
+## 三層架構：API / Core / Infrastructure
+
+責任分離 · 用例隔離 · 依賴反轉
+
+---
+layout: default
+---
+
+# API / Infrastructure / Core：三個常見的分層目的?
 
 ```mermaid
 flowchart LR
@@ -294,25 +370,38 @@ flowchart LR
     Infra --> Ext[Mail / Queue / File / ERP]
 ```
 
-::right::
+<div class="mt-4 soft-grid three">
 
-<div class="panel small">
+<div class="panel small" v-click>
+<div class="layer-name mb-1">API 層</div>
+HTTP 入口、DTO、授權、Route 組裝<br>
+<span class="muted">不碰商業邏輯，不直接存取資料庫</span>
+</div>
 
-- **API**：HTTP 入口、DTO、授權、組裝
-- **Core**：用例、商業規則、流程、抽象介面
-- **Infrastructure**：EF Core、外部服務、資料庫、設定實作
+<div class="panel small" v-click>
+<div class="layer-name mb-1">Core 層</div>
+用例、商業規則、流程、抽象介面定義<br>
+<span class="muted">不依賴任何 Infrastructure 實作</span>
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">Infrastructure 層</div>
+EF Core、外部服務、資料庫、設定實作<br>
+<span class="muted">透過介面被 Core 呼叫，隨時可替換</span>
+</div>
 
 </div>
 
 ---
 layout: two-cols-header
+transition: slide-left
 ---
 
 # 舊 vs 新：功能到底寫在哪裡
 
 ::left::
 
-<div class="panel small">
+<div class="panel small" v-motion :initial="{ opacity: 0, x: -40 }" :enter="{ opacity: 1, x: 0 }">
 
 ### 舊做法
 
@@ -325,7 +414,7 @@ layout: two-cols-header
 
 ::right::
 
-<div class="panel small">
+<div class="panel small" v-motion :initial="{ opacity: 0, x: 40 }" :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }">
 
 ### 新模型
 
@@ -338,66 +427,93 @@ layout: two-cols-header
 
 ---
 layout: two-cols
+clicks: 3
 ---
 
 # 最小範例：DI 與用例註冊
 
 ::left::
 
-<<< @/snippets/dependency-registration.cs {cs}{maxHeight:'390px'}
+````md magic-move {at:1, lines: true}
+```cs {style="font-size:0.84em"}
+builder.Services.AddScoped<
+    IOrderApprovalService,
+    OrderApprovalService>();
+
+builder.Services.AddScoped<IClock, SystemClock>();
+```
+```cs {style="font-size:0.84em"}
+builder.Services.AddScoped<
+    IOrderApprovalService,
+    OrderApprovalService>();
+builder.Services.AddScoped<IClock, SystemClock>();
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseSqlServer(
+        config.GetConnectionString("MainDb")));
+```
+<<< @/snippets/dependency-registration.cs cs {*}{maxHeight:'360px',style:"font-size:0.84em"}
+````
 
 ::right::
 
 <div class="panel small">
 
-### 為什麼這樣切比較能維護
+<v-clicks>
 
-- API 只依賴 Core 的能力
-- Infrastructure 在啟動時被接上去
-- 單元測試可以替換掉實作
-- 改 DB 或外部服務，不必重寫 use case
+- 先只看到 Core 的抽象能力註冊
+- 再補進 Infrastructure 的資料存取實作
+- 最後得到完整、可替換、可測試的組裝版本
+
+</v-clicks>
 
 </div>
 
 ---
-layout: two-cols
+layout: section
+transition: slide-up
+---
+
+# 第三章
+
+## 資料庫版本治理
+
+EF Core · Migration · DbContext
+
+---
+layout: default
+transition: slide-left
 ---
 
 # ORM / EF Core 先解的是哪些舊痛點
 
-::left::
+<div class="soft-grid two">
 
-<div class="panel small">
-
-### 傳統手寫 ADO.NET / SQL
+<div class="panel small panel--legacy">
+<div class="col-badge col-badge--legacy">傳統 ADO.NET / SQL</div>
 
 - mapping 樣板碼很多
 - connection / transaction 管理零散
 - 查詢散在各層，重用差
 - schema 改了，程式不一定同步
-
 </div>
 
-::right::
-
-<div class="panel small">
-
-### EF Core 的改善
+<div class="panel small panel--modern">
+<div class="col-badge col-badge--modern">EF Core 的改善</div>
 
 - `DbContext` 集中資料存取
 - query 與模型可以工程化治理
 - migration 可描述 schema 版本
 - 交易、攔截器、追蹤策略比較可控
+</div>
 
 </div>
 
 ---
-layout: two-cols-header
+layout: default
 ---
 
 # Migration 不是建表工具，而是版本治理工具
-
-::left::
 
 ```mermaid
 flowchart LR
@@ -407,30 +523,83 @@ flowchart LR
     D --> E[程式版本與 DB 版本對齊]
 ```
 
-::right::
+<div class="mt-4 soft-grid four">
 
-<div class="panel small">
+<div class="panel small" v-click>
+<div class="layer-name mb-1">可追蹤</div>
+DB 變更有歷史，知道誰改了什麼
+</div>
 
-- DB 變更有歷史可追
-- 新環境可重建
-- 環境差異比較容易被發現
-- 部署流程能驗證程式對應的 schema
+<div class="panel small" v-click>
+<div class="layer-name mb-1">可重建</div>
+新環境直接執行 migration，不靠手工腳本
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">可比對</div>
+程式版本與 DB schema 版本對齊，差異一目了然
+</div>
+
+<div class="panel small" v-click>
+<div class="layer-name mb-1">可驗證</div>
+部署流程能確認程式對應正確的 schema 版本
+</div>
 
 </div>
 
 ---
 layout: two-cols
+clicks: 3
 ---
 
 # 最小範例：DbContext 與 Migration 指令
 
 ::left::
 
-<<< @/snippets/db-context.cs {cs}{maxHeight:'360px'}
+````md magic-move {at:1, lines: true}
+```cs
+public sealed class AppDbContext : DbContext
+{
+    public DbSet<Order> Orders => Set<Order>();
+}
+```
+```cs
+public sealed class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+
+    public DbSet<Order> Orders => Set<Order>();
+}
+```
+<<< @/snippets/db-context.cs cs {*}{maxHeight:'360px'}
+````
 
 ::right::
 
-<<< @/snippets/migration-commands.ps1 {powershell}{maxHeight:'360px'}
+````md magic-move {at:2, lines: true}
+```powershell
+dotnet ef migrations add InitOrderModule
+```
+```powershell
+dotnet ef migrations add InitOrderModule `
+  --project src/Company.Project.Infrastructure `
+  --startup-project src/Company.Project.Api
+```
+<<< @/snippets/migration-commands.ps1 powershell {*}{maxHeight:'360px'}
+````
+
+---
+layout: section
+transition: slide-up
+---
+
+# 第四章
+
+## 設定治理
+
+Configuration · Secrets · Environment Variables
 
 ---
 layout: two-cols-header
@@ -440,7 +609,13 @@ layout: two-cols-header
 
 ::left::
 
-<<< @/snippets/appsettings.json {json}{maxHeight:'380px'}
+```mermaid
+flowchart TD
+    A[appsettings.json] --> E[Configuration View]
+    B[appsettings.Environment.json] --> E
+    C[User Secrets] --> E
+    D[Environment Variables] --> E
+```
 
 ::right::
 
@@ -458,13 +633,58 @@ layout: two-cols-header
 
 ---
 layout: two-cols
+clicks: 3
+---
+
+# 最小範例：`appsettings` 怎麼長大
+
+::left::
+
+````md magic-move {at:1, lines: true}
+```json
+{
+  "ConnectionStrings": {
+    "MainDb": "Server=.;Database=OrdersDb;Trusted_Connection=True"
+  }
+}
+```
+```json
+{
+  "ConnectionStrings": {
+    "MainDb": "Server=.;Database=OrdersDb;Trusted_Connection=True"
+  },
+  "Mail": {
+    "Host": "smtp.internal.local"
+  }
+}
+```
+<<< @/snippets/appsettings.json json {*}{maxHeight:'380px'}
+````
+
+::right::
+
+<div class="panel small">
+
+<v-clicks>
+
+- 第一步先放非敏感的基礎設定
+- 第二步擴充模組化的運行參數
+- 最後維持可讀性，同時把敏感值留給外部覆寫
+
+</v-clicks>
+
+</div>
+
+---
+layout: two-cols
+transition: slide-left
 ---
 
 # 哪些值該放檔案，哪些不該
 
 ::left::
 
-<div class="panel small">
+<div class="panel small" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0 }">
 
 ### 可以進 repo
 
@@ -477,7 +697,7 @@ layout: two-cols
 
 ::right::
 
-<div class="panel small">
+<div class="panel small" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0, transition: { delay: 160 } }">
 
 ### 不該直接進 repo
 
@@ -490,24 +710,36 @@ layout: two-cols
 
 ---
 layout: two-cols-header
+clicks: 3
 ---
 
 # 最小範例：環境變數如何覆寫設定
 
 ::left::
 
-<<< @/snippets/environment-override.ps1 {powershell}{maxHeight:'360px'}
+````md magic-move {at:1, lines: true}
+```powershell
+$env:ASPNETCORE_ENVIRONMENT = "Production"
+```
+```powershell
+$env:ASPNETCORE_ENVIRONMENT = "Production"
+$env:ConnectionStrings__MainDb = `
+  "Server=sql-prod;Database=OrdersDb;User Id=svc_api;Password=***"
+```
+<<< @/snippets/environment-override.ps1 powershell {*}{maxHeight:'360px'}
+````
 
 ::right::
 
 <div class="panel small">
 
-### 核心原則
+<v-clicks>
 
-- 階層式 key 用 `__`
+- 階層式 key 用 `__` 雙底線分隔
 - 同一套程式可在不同機器注入不同值
 - publish 包不需要內建正式環境祕密
-- 環境切換靠外部注入，不靠改程式碼
+
+</v-clicks>
 
 </div>
 
@@ -530,11 +762,13 @@ flowchart TD
 
 <div class="panel small">
 
-### 使用、儲存、保護要一起談
+<v-clicks>
 
 - 本機：每位開發者保有自己的敏感設定
 - 部署：由機器、服務或流程注入
-- 保護：最小暴露、分環境隔離、權限限制、可輪替
+- 保護：最小暴露、分環境隔離、可輪替
+
+</v-clicks>
 
 </div>
 
@@ -544,11 +778,30 @@ layout: statement
 
 # 真正危險的不是「有沒有用環境變數」
 
-而是 <span class="danger font-bold">裡面裝了什麼、誰能看、誰能改、怎麼輪替</span>。  
-現代化不是把密碼從檔案搬家，而是建立治理方式。
+<div
+  class="statement-body danger-body"
+  v-motion
+  :initial="{ opacity: 0, scale: 0.9 }"
+  :enter="{ opacity: 1, scale: 1, transition: { duration: 600 } }"
+>
+  而是裡面裝了什麼、誰能看、誰能改、怎麼輪替。<br>
+  現代化不是把密碼從檔案搬家，而是建立治理方式。
+</div>
+
+---
+layout: section
+transition: slide-up
+---
+
+# 第五章
+
+## 地端自部署
+
+標準化流程 · 產物解耦 · 可重複執行
 
 ---
 layout: two-cols-header
+transition: slide-left
 ---
 
 # 地端自部署也可以很現代
@@ -572,8 +825,8 @@ layout: two-cols-header
 
 ### 標準化部署模型
 
-- 產物固定
-- 設定外部化
+- 產物固定，與環境解耦
+- 設定外部化，不藏在 artifact
 - DB 更新是顯性步驟
 - 啟動參數明確
 - 可重複、可追蹤、可交接
@@ -602,30 +855,53 @@ flowchart LR
 
 <div class="panel small">
 
+<v-clicks>
+
 - 一開始可以只是 PowerShell + 目錄慣例
 - 關鍵不是工具名稱，而是流程標準化
 - 地端部署也應該把設定、版本、啟動方式文件化
+
+</v-clicks>
 
 </div>
 
 ---
 layout: two-cols-header
+clicks: 3
 ---
 
 # 最小範例：部署腳本與外部化設定
 
 ::left::
 
-<<< @/snippets/deploy.ps1 {powershell}{maxHeight:'365px'}
+````md magic-move {at:1, lines: true}
+```powershell
+param(
+    [string]$ArtifactPath = "D:\deploy\orders-api"
+)
+```
+```powershell
+param(
+    [string]$ArtifactPath = "D:\deploy\orders-api",
+    [string]$ServiceName = "OrdersApi"
+)
+
+$env:ASPNETCORE_ENVIRONMENT = "Production"
+```
+<<< @/snippets/deploy.ps1 powershell {*}{maxHeight:'365px'}
+````
 
 ::right::
 
 <div class="panel small">
 
-- artifact 應與環境解耦
+<v-clicks>
+
+- artifact 應與環境解耦，才能跨機器複用
 - 部署時才決定正式環境連線與祕密
-- DB 更新要在流程中明確出現
-- 啟動與回滾至少要有明確操作邊界
+- DB 更新要在流程中明確出現，不能隱藏
+
+</v-clicks>
 
 </div>
 
@@ -672,11 +948,11 @@ layout: two-cols
 
 <div class="panel">
 
-1. 現代 .NET 的價值在工程控制點  
-2. API / Core / Infrastructure 是責任分離  
-3. EF Core + Migration 是資料庫版本治理  
-4. 設定與祕密治理是系統邊界的一部分  
-5. 地端自部署一樣可以流程化、可控化
+1. 現代 .NET 的價值在**工程控制點**
+2. API / Core / Infrastructure 是**責任分離**
+3. EF Core + Migration 是**資料庫版本治理**
+4. 設定與祕密治理是**系統邊界的一部分**
+5. 地端自部署一樣可以**流程化、可控化**
 
 </div>
 
@@ -686,10 +962,10 @@ layout: two-cols
 
 ### 下一步建議
 
-- 下個新專案直接用三層骨架
+- 下個新專案直接用三層骨架開始
 - 先補齊設定與祕密管理規範
-- 把 Migration 納入日常流程
-- 用腳本取代手動部署知識
+- 把 Migration 納入日常開發流程
+- 用腳本取代手動部署，沉澱流程知識
 
 </div>
 
@@ -697,7 +973,31 @@ layout: two-cols
 layout: end
 ---
 
-# Q&A
+<div
+  v-motion
+  :initial="{ opacity: 0, scale: 0.9 }"
+  :enter="{ opacity: 1, scale: 1, transition: { duration: 800 } }"
+>
 
-從「網站能跑」走到「系統可控」  
-就是現代後端工程的起點
+# Q & A
+
+</div>
+
+<div
+  class="hero-copy"
+  v-motion
+  :initial="{ opacity: 0, y: 30 }"
+  :enter="{ opacity: 1, y: 0, transition: { delay: 200 } }"
+>
+  從「網站能跑」走到「系統可控」<br>
+  就是現代後端工程的起點
+</div>
+
+<div
+  class="hero-meta"
+  v-motion
+  :initial="{ opacity: 0, y: 20 }"
+  :enter="{ opacity: 1, y: 0, transition: { delay: 380 } }"
+>
+  slides.md · Slidev · <span class="accent">ASP.NET Core</span>
+</div>

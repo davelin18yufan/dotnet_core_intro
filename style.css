@@ -1,0 +1,304 @@
+:root {
+  --slidev-theme-primary: #38bdf8;
+  --slidev-theme-secondary: #8b5cf6;
+  --slidev-theme-accent: #f59e0b;
+  --slidev-code-background: #0b1220;
+}
+
+html:not(.dark) {
+  color-scheme: dark;
+}
+
+.slidev-layout,
+.slidev-layout.cover,
+.slidev-layout.end,
+.slidev-layout.statement {
+  color: #e5eefb;
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at left bottom, rgba(139, 92, 246, 0.18), transparent 30%),
+    linear-gradient(180deg, #050b16 0%, #09111f 45%, #0b1324 100%);
+}
+
+/* section layout 保持一致的深色背景 */
+.slidev-layout.section {
+  background:
+    radial-gradient(circle at center, rgba(56, 189, 248, 0.08), transparent 60%),
+    linear-gradient(180deg, #050b16 0%, #09111f 100%);
+}
+
+.slidev-layout.section h1 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #7dd3fc;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.slidev-layout.section h2 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-bottom: 1rem;
+}
+
+.slidev-layout.section p {
+  color: #94a3b8;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout p,
+.slidev-layout li,
+.slidev-layout td,
+.slidev-layout th {
+  color: inherit;
+}
+
+/* h1/h2 漸變色（cover / end 保留原色） */
+.slidev-layout:not(.cover):not(.end) h1 {
+  background: linear-gradient(120deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slidev-layout:not(.cover):not(.end) h2 {
+  background: linear-gradient(120deg, #7dd3fc 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  letter-spacing: 0.01em;
+}
+
+/* .NET 平台分層圖 */
+.platform-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+
+.platform-layer {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border-left: 3px solid;
+}
+
+.platform-layer--tooling {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.platform-layer--framework {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.platform-layer--bcl {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.platform-layer--runtime {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.layer-num {
+  font-size: 1.25rem;
+  font-weight: 800;
+  width: 1.6rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.platform-layer--tooling .layer-num   { color: #34d399; }
+.platform-layer--framework .layer-num { color: #a78bfa; }
+.platform-layer--bcl .layer-num       { color: #7dd3fc; }
+.platform-layer--runtime .layer-num   { color: #fbbf24; }
+
+.layer-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--slidev-theme-accent);
+}
+
+.layer-detail {
+  font-size: 0.76rem;
+  color: #64748b;
+  margin-top: 0.1rem;
+}
+
+/* vs 比較列 */
+.compare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  font-size: 0.84rem;
+  gap: 0.5rem;
+}
+
+.compare-row:last-child {
+  border-bottom: none;
+}
+
+.accent-green {
+  color: #34d399;
+  font-weight: 600;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #7dd3fc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-copy {
+  margin-top: 1.4rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #dbe7ff;
+}
+
+.hero-meta {
+  margin-top: 2rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.panel {
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 16px;
+  background: rgba(8, 15, 31, 0.75);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.2s;
+}
+
+.metric-card {
+  min-height: 90px;
+  border-left: 3px solid rgba(56, 189, 248, 0.5);
+}
+
+.metric {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #7dd3fc;
+  margin-bottom: 0.25rem;
+}
+
+.soft-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.soft-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.soft-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.soft-grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.small {
+  font-size: 0.91rem;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+.accent {
+  color: #fbbf24;
+}
+
+.statement-body {
+  margin-top: 2.2rem;
+  font-size: 1.35rem;
+  line-height: 1.85;
+  color: #dbeafe;
+}
+
+.danger-body {
+  color: #fca5a5;
+}
+
+thead tr {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+table {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* 對比欄位：舊 vs 新 */
+.panel--legacy {
+  border-left: 3px solid rgba(251, 191, 36, 0.55);
+  background: rgba(28, 14, 4, 0.72);
+}
+
+.panel--modern {
+  border-left: 3px solid rgba(56, 189, 248, 0.55);
+  background: rgba(4, 14, 30, 0.78);
+}
+
+.col-badge {
+  display: inline-block;
+  padding: 0.18rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.col-badge--legacy {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.38);
+  color: #fcd34d;
+}
+
+.col-badge--modern {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  color: #7dd3fc;
+}
+
+.slidev-code {
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+}
