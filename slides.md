@@ -883,27 +883,39 @@ flowchart LR
     E --> F[程式讀取 IConfiguration]
 ```
 
-<div class="mt-3 soft-grid four">
+<div class="mt-3 soft-grid four absolute top-1/2 left-0">
 
-<div class="panel small" v-click>
+<div class="panel small" v-click  v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">appsettings.json</div>
   非敏感預設值，<strong>可進 repo</strong><br>
   <span class="muted">所有環境共用的基礎起點</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click  v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">appsettings.{Env}.json</div>
   覆蓋特定環境差異，<strong>可進 repo</strong><br>
   <span class="muted">Dev / Staging / Prod 各自獨立</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click  v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">User Secrets</div>
   本機開發用，<strong>不進 repo</strong><br>
   <span class="muted">存在使用者目錄，每人自己維護</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click  v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">Environment Variables</div>
   部署時注入，<strong>優先權最高</strong><br>
   <span class="muted">覆蓋所有下層設定，適合正式機敏感值</span>
@@ -1157,19 +1169,28 @@ flowchart LR
 
 <div class="mt-4 soft-grid three">
 
-<div class="panel small" v-click>
+<div class="panel small" v-click   v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">本機開發</div>
   <code>dotnet user-secrets set "Auth:JwtSecret" "dev-only"</code><br>
   <span class="muted">存在 <code>%APPDATA%\Microsoft\UserSecrets</code>，永不進 git</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click   v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">測試 / 驗證環境</div>
   <code>appsettings.Staging.json</code> 覆蓋 Host、Port<br>
   <span class="muted">敏感值仍由環境變數注入，不進 repo</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click   v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+>
   <div class="layer-name mb-1">地端正式機</div>
   所有敏感值由部署工具寫入 Windows 環境變數<br>
   <span class="muted">最小暴露、分環境隔離、隨時可輪替</span>
@@ -1194,7 +1215,7 @@ flowchart LR
 layout: statement
 ---
 
-# 真正危險的不是「有沒有用環境變數」
+# 不是強制使用環境變數
 
 <div
   class="statement-body danger-body"
@@ -1203,7 +1224,7 @@ layout: statement
   :enter="{ opacity: 1, scale: 1, transition: { duration: 600 } }"
 >
   而是裡面裝了什麼、誰能看、誰能改、怎麼輪替。<br>
-  現代化不是把密碼從檔案搬家，而是建立治理方式。
+  軟體界迭代幾十年出來的架構並不是簡單把密碼從檔案搬家，而是建立治理方式。
 </div>
 
 ---
@@ -1229,37 +1250,37 @@ transition: slide-left
 <div class="panel panel--legacy" v-motion :initial="{ opacity: 0, x: -40 }" :enter="{ opacity: 1, x: 0 }">
 <div class="col-badge col-badge--legacy">手動 IIS 點選式部署</div>
 
-- 站台設定散落在 IIS 管理視窗，<strong>不在版控裡</strong>
-- 同一專案在不同機器，步驟可能都不同
-- 發生故障時無法比對各台機器的設定差異
+- 站台設定散落在 IIS 管理視窗，<strong v-mark.red="1">不在版控裡</strong>
+- 同一專案在不同機器，<strong v-mark.red="2">步驟可能都不同</strong>
+- 發生故障時無法比對各台機器的<strong v-mark.red="2">設定差異</strong>
 - 部署知識靠人記、靠口傳，人走了知識就不見
-- 沒有標準，每次部署都是一次賭注
+- <strong v-mark.yellow="4">沒有標準</strong>，每次部署或Debug都是通靈
 
 </div>
 
 <div class="panel panel--modern" v-motion :initial="{ opacity: 0, x: 40 }" :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }">
 <div class="col-badge col-badge--modern">標準化部署模型</div>
 
-- 產物固定（publish artifact），與環境完全解耦
-- 設定外部化：敏感值在目標機注入，不進 artifact
-- DB 更新是流程中的<strong>顯性步驟</strong>，不能隱藏跳過
-- 啟動參數寫在腳本裡，不靠人記憶
-- 可重複執行、可追蹤版本、可交接給任何人
+- 產物固定`publish artifact`，<strong v-mark.red="1">環境完全解耦</strong>
+- 設定<strong v-mark.red="2">外部化</strong>：敏感值在目標機注入，不進 artifact
+- `DB 更新`是流程中的<strong v-mark.circle.orange="3">顯性步驟</strong>，不能隱藏跳過
+- <strong v-mark.yellow="4">啟動參數寫在腳本裡，不靠人記憶</strong>
+- <strong v-mark.yellow="4">可重複執行、可追蹤版本</strong>、可交接給任何人
 
 </div>
 
 </div>
 
 <div
-  v-click
+  v-click="5"
   v-motion
   :initial="{ opacity: 0, y: 16 }"
   :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
   class="panel mt-4"
   style="border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.08);"
 >
-  <span style="color:#fbbf24; font-weight:600;">關鍵：</span>
-  不是要換什麼工具，而是把「部署是哪些步驟」這件事<strong>寫進腳本、寫進流程</strong>。
+  <span style="color:#fbbf24; font-weight:600;">TL;DR：</span>
+  工具並不是重點，而是把「部署是哪些步驟」這件事<strong>寫進腳本、寫進流程、自動化執行</strong>。
   就算只是 PowerShell + 目錄慣例，只要標準化就能可控、可交接。
 </div>
 
@@ -1280,22 +1301,28 @@ flowchart LR
 
 <div class="mt-4 soft-grid three">
 
-<div class="panel small" v-click>
+<div class="panel small" v-click v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }">
   <div class="layer-name mb-1">① – ②　Build & 複製</div>
   <code>dotnet publish -c Release -o ./publish</code><br>
   <span class="muted">產物與環境無關，同一包可部署到任何機器</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }">
   <div class="layer-name mb-1">③ – ④　設定 & Migration</div>
   環境變數注入後執行 <code>MigrateAsync()</code><br>
   <span class="muted">DB schema 對齊必須是流程中的明確步驟</span>
 </div>
 
-<div class="panel small" v-click>
+<div class="panel small" v-click v-motion
+  :initial="{ opacity: 0, y: 16 }"
+  :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }">
   <div class="layer-name mb-1">⑤ – ⑥　啟動 & 健康檢查</div>
   <code>Start-Service</code> 後打 <code>/healthz</code> 確認<br>
-  <span class="muted">不靠人目視，腳本自動判斷是否部署成功</span>
+  <span class="muted">不靠人工檢查，腳本自動判斷是否部署成功</span>
 </div>
 
 </div>
@@ -1303,6 +1330,7 @@ flowchart LR
 ---
 layout: default
 clicks: 5
+transition: slide-up
 ---
 
 # 最小範例：部署腳本與外部化設定
@@ -1341,7 +1369,7 @@ Copy-Item "$ArtifactPath\*" "D:\services\ssoportal-api\" -Recurse -Force
 dotnet ef database update --project SSOPortal.Infrastructure
 Start-Service $ServiceName
 Invoke-RestMethod "http://localhost:5000/healthz"
-Write-Host "✅ 部署完成"
+Write-Host "OK! 部署完成"
 ```
 ````
 
@@ -1376,39 +1404,57 @@ Write-Host "✅ 部署完成"
   :initial="{ opacity: 0, y: 12 }"
   :click-5="{ opacity: 1, y: 0, transition: { duration: 300 } }"
   style="position:absolute; bottom:52px; right:52px; pointer-events:none;"
-  class="hint-bubble"
+  class="hint-bubble "
 >
-  五個步驟全部在腳本裡，順序固定<br>
-  Migration 是顯性步驟，不能跳過<br>
-  <strong>健康檢查確認後才算部署成功</strong>
+
+  - 五個步驟全部在腳本裡，順序固定
+  - Migration 是顯性步驟，不能跳過
+  - *健康檢查確認後才算部署成功*
+
 </div>
+
+<style>
+.hint-bubble {
+  background: rgba(56, 248, 191, 0.1);
+  border: 1px solid rgba(56, 248, 203, 0.4);
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 0.82em;
+  line-height: 1.7;
+  color: #7dd3fc;
+  backdrop-filter: blur(6px);
+  max-width: 300px;
+  text-align: center;
+}
+</style>
 
 ---
 layout: default
+transition: fade-out
 ---
 
-# 新專案一開始就該建立的工程基線
+# 開新專案一開始就該建立的架構基礎
 
 <div class="soft-grid two">
 
-<div class="panel" v-motion :initial="{ opacity: 0, x: -40 }" :enter="{ opacity: 1, x: 0 }">
+<div class="panel" v-motion :initial="{ opacity: 0, x: -40 }" :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }" >
 
 ### 專案骨架
 
-- `API / Core / Infrastructure` 三層分責，邊界從第一天就清楚
-- `Program.cs` 統一組裝，依賴關係一目了然
-- Options Pattern 綁定設定，型別安全、不手動讀字串
-- 統一 logging、全域例外處理、`/healthz` health checks
+- <strong v-mark.red="1">`API / Core / Infrastructure`</strong> 基本三層分責，邊界從最初就定義好
+- <code v-mark.circle.orange="1">`Program.cs`</code> 統一組裝，依賴關係一目了然
+- <code v-mark.red="1">Options Pattern</code> 綁定設定，型別安全、不手動讀字串
+- 統一 logging、全域例外處理、<strong v-mark.red="1">`/healthz` health checks</strong>
 
 </div>
 
-<div class="panel" v-motion :initial="{ opacity: 0, x: 40 }" :enter="{ opacity: 1, x: 0, transition: { delay: 160 } }">
+<div class="panel" v-motion :initial="{ opacity: 0, x: 40 }" :enter="{ opacity: 1, x: 0, transition: { delay: 560 } }">
 
 ### 工程流程
 
-- Migration 進版控，DB 變更有歷史可查
-- 本機敏感值用 User Secrets，不進 repo
-- publish 產物與環境設定完全分離
+- <strong v-mark.yellow="2">Migration 進版控</strong>，DB 變更有歷史可查
+- 本機敏感值用 <code v-mark.circle.blue="2">User Secrets</code>，不進 repo
+- <strong v-mark.yellow="2">publish 產物與環境設定完全分離</strong>
 - 至少有 `build.ps1`、`deploy.ps1` 基本腳本
 - README 寫清楚啟動步驟與部署方式
 
@@ -1417,46 +1463,74 @@ layout: default
 </div>
 
 <div
-  v-click
+  v-click="3"
   v-motion
   :initial="{ opacity: 0, y: 16 }"
   :enter="{ opacity: 1, y: 0, transition: { duration: 400 } }"
   class="panel mt-4"
   style="border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.08);"
 >
-  <span style="color:#38bdf8; font-weight:600;">核心心態：</span>
-  從「能跑就好」到「可控、可重建、可交接」——這不是大工程，是從第一個 commit 就養成的習慣。
+  <span style="color:#38bdf8; font-weight:600;">Takeaway：</span>
+  從「能跑就好」到「可控、可重建、可交接」——是從第一個 commit 就養成的習慣。
 </div>
+
+<style>
+
+.panel h3 {
+  @apply mb-4 text-2xl font-bold text-sky-300;
+}
+
+.panel ul {
+  @apply space-y-3 text-lg leading-relaxed;
+}
+
+.panel li {
+  @apply list-disc marker:text-sky-400;
+}
+</style>
 
 ---
 layout: default
 ---
 
-# 今天要帶走的核心訊息
+# Wrap Up
 
 <div class="panel">
 
 <div class="soft-grid five" style="--cols:1; gap: 0.6rem;">
 
-<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);">
-  <span style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">1</span>
-  <span>現代 .NET 的價值在 <strong>工程控制點</strong>，不是語法糖</span>
+<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);" v-motion
+  :initial="{ opacity: 0, x: 160 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 400 } }">
+  <span class="italic" style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">1</span>
+  <span>當今 .NET 的價值在 <strong class="text-fuchsia-600">工程控制點</strong>，不是語法糖，也不是框架規則</span>
 </div>
-<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);">
-  <span style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">2</span>
-  <span><code>API / Core / Infrastructure</code> 是 <strong>責任分離</strong>，讓每一層只做自己該做的事</span>
+<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);" v-motion
+  :initial="{ opacity: 0, x: 160 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 400 } }">
+  <span class="italic" style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">2</span>
+  <span><code>API / Core / Infrastructure</code> 是 <strong class="text-emerald-600">責任分離</strong>，讓每一層只做自己該做的事</span>
 </div>
-<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);">
-  <span style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">3</span>
-  <span>EF Core + Migration 是 <strong>資料庫版本治理</strong>，把 schema 演進納入版控</span>
+<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);" v-motion
+  :initial="{ opacity: 0, x: 160 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 400 } }">
+  <span class="italic" style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">3</span>
+  <span>EF Core + Migration 是 <strong class="text-cyan-600">資料庫版本治理</strong>，把 schema 演進納入版控</span>
 </div>
-<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);">
-  <span style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">4</span>
-  <span>設定與祕密治理是 <strong>系統邊界的一部分</strong>，不是部署後才想的事</span>
+<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);" v-motion
+  :initial="{ opacity: 0, x: 160 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 400 } }">
+  <span class="italic" style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">4</span>
+  <span>設定與祕密治理是 <strong class="text-violet-600">系統邊界的一部分</strong>，不是部署後才想的事</span>
 </div>
-<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0;">
-  <span style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">5</span>
-  <span>地端自部署一樣可以 <strong>流程化、可控化</strong>，腳本就是部署知識的載體</span>
+<div v-click style="display:flex; align-items:baseline; gap:0.8rem; padding: 0.5rem 0;" v-motion
+  :initial="{ opacity: 0, x: 160 }"
+  :enter="{ opacity: 1, x: 0, transition: { duration: 400 } }">
+  <span class="italic" style="color:#38bdf8; font-weight:700; font-size:1.2em; min-width:1.4rem;">5</span>
+  <span>地端自部署一樣可以 <strong class="text-amber-600">流程化、可控化</strong>，腳本就是部署知識的載體，也就是所謂的<code>IaC</code>基礎架構即程式碼 (Infrastructure as Code)</span> 
+  
+  
+
 </div>
 
 </div>
@@ -1471,15 +1545,16 @@ layout: default
   class="panel mt-4"
   style="border-color: rgba(139,92,246,0.5); background: rgba(139,92,246,0.08);"
 >
-  <span style="color:#a78bfa; font-weight:600;">下一步：</span>
-  下個新專案直接用三層骨架開始・先補齊設定與祕密管理規範・把 Migration 納入日常開發・用腳本取代手動部署
+  <span style="color:#a78bfa; font-weight:600;">What's Next：</span>
+  從專案骨架分離依賴以及模組・先補齊設定與祕密管理規範・把 Migration 納入日常開發・用腳本取代手動部署
 </div>
 
 ---
 layout: end
 ---
 
-<div
+<h2
+  class="hero-copy"
   v-motion
   :initial="{ opacity: 0, scale: 0.9 }"
   :enter="{ opacity: 1, scale: 1, transition: { duration: 800 } }"
@@ -1487,23 +1562,23 @@ layout: end
 
 # Q & A
 
-</div>
+</h2>
 
 <div
-  class="hero-copy"
+  class="hero-copy text-olive-100"
   v-motion
   :initial="{ opacity: 0, y: 30 }"
   :enter="{ opacity: 1, y: 0, transition: { delay: 200 } }"
 >
   從「網站能跑」走到「系統可控」<br>
-  就是現代後端工程的起點
+  就是轉變的起點
 </div>
 
 <div
-  class="hero-meta"
+  class="hero-meta text-teal-500"
   v-motion
   :initial="{ opacity: 0, y: 20 }"
   :enter="{ opacity: 1, y: 0, transition: { delay: 380 } }"
 >
-  slides.md · Slidev · <span class="accent">ASP.NET Core</span>
+  Dave · Slidev · <span class="accent">ASP.NET Core</span>
 </div>

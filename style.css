@@ -67,7 +67,7 @@ html:not(.dark) {
   background-clip: text;
 }
 
-.slidev-layout:not(.cover):not(.end) h2 {
+.slidev-layout:not(.cover) h2 {
   background: linear-gradient(120deg, #7dd3fc 0%, #a78bfa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
