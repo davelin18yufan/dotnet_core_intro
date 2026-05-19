@@ -738,13 +738,23 @@ clicks: 7
 #### 假設我們要新增一張 Member Table
 
 ````md magic-move {at:1, lines: true}
-```cs {*|2-8} {style="font-size:0.85em"}
-// Project.Core
-// ① 先修改 Model — EF Core 追蹤的 schema 定義
+```cs {*|4-19} {style="font-size:0.85em"}
+// Project.Infrastructure
+// ① 先修改 Entity — EF 追蹤的 schema 定義
+namespace SSOPortal.Infrastructure.Data;
+
+[Table("Member")]
 public class Member
 {
+    [Column("mem_memno")]
     public Guid   MemNo      { get; set; }
+
+    [Column("mem_account")]
+    [StringLength(40)]
     public string MemAccount { get; set; } = string.Empty;
+
+    [Column("mem_name")]
+    [StringLength(40)]
     public string MemName    { get; set; } = string.Empty;
     public string MemStatus  { get; set; } = "1";
 }
@@ -782,7 +792,7 @@ await context.Database.MigrateAsync();
   class="hint-bubble"
 >
   <strong class="text-orange-400">IMPORTANT</strong><br>
-  先改 <code>Core.Model</code>，EF Core 才有辦法<br>
+  先改 <code>Infrastructure.Data.Entity</code>，EF Core 才有辦法<br>
   偵測到 schema 與程式碼之間的差異
 </div>
 
